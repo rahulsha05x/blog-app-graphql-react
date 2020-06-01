@@ -1,7 +1,13 @@
 .PostDetail {
     min-height:500px;
+    font-family: 'Open Sans', sans-serif;
 }
-
+.PostDetail__Title {
+    font-weight: 800;
+}
+.PostDetail__Description {
+    font-weight: 400;
+}
 .PostDetail .PostDetail__Description {
     border:1px solid #dedede;
     padding: 10px;

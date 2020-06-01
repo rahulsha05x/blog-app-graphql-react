@@ -31,7 +31,7 @@ const PostList:React.FC<Props> = (props: Props) => {
     <div className='PostList'>
       <Row>
         <Col md="10">
-          <h1>Posts</h1>
+          <h1 className="PostList__Heading">Posts</h1>
         </Col>
       </Row>
       <Row>

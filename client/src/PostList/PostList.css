@@ -6,6 +6,9 @@
     height:400px;
 
 }
+.PostList__Heading {
+    font-weight: 600;
+}
 .btn--primary a{
     color:#fff;
 }

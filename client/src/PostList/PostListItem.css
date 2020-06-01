@@ -18,10 +18,12 @@
 .PostItem__Card--Heading {
     width: 500px;
     min-height: 85px;
+    font-weight: 600;
 }
 .PostItem__Card--Description {
     max-width:500px;
     min-height:80px;
+    font-weight:400;
 }
 .PostItem__Card--Heading a{
     color:black;
