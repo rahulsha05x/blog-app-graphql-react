@@ -8,14 +8,19 @@ import {
 } from "../Queries";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { Post } from "../PostList/Post";
 
 interface Input {
   title: string;
   description: string;
 }
-export const usePost = () => {
+export const usePost = (id?:string) => {
   const history = useHistory();
   let { data, refetch } = useQuery(LOAD_POSTS);
+  const {data:data_post} = useQuery(GET_POST,{
+    variables:{id},
+    onError:(error) => console.log(error)
+  });
   const [deletePost] = useMutation(DELETE_POSTS, {
     onCompleted: (record) => {
       refetch();
@@ -33,25 +38,16 @@ export const usePost = () => {
   });
 
   const posts = data ? data.posts : [];
+  const post = data_post ? data_post.post : new Post(id="","","")
   useEffect(() => {
     refetch();
   }, [refetch]);
   return {
     posts,
+    post,
     deletePost: (id: string) => deletePost({ variables: { id } }),
     createPost: (input: Input) => createPost({ variables: { input } }),
     updatePost: (id: string, title: string, description: string) =>
       updatePost({ variables: { id, title, description } }),
   };
 };
-
-export const useGetPost = (id:string) => {
-    let { data: data_post } = useQuery(GET_POST, {
-        variables: { id },
-        onError: (error) => console.log("Error", error),
-      });
-      const displayPost = data_post ? data_post.post : { title: "", description: "" };
-      return {
-          displayPost
-      }
-}

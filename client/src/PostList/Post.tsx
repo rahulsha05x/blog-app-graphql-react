@@ -5,3 +5,6 @@ export interface Post {
     description:string
 }
 
+export class Post implements Post {
+    constructor(public id:string,public title:string,public description:string) {}
+}
