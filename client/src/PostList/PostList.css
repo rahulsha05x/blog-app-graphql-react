@@ -1,0 +1,11 @@
+.PostList__Item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    min-height:200px;
+    height:400px;
+
+}
+.btn--primary a{
+    color:#fff;
+}

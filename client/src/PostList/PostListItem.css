@@ -1,0 +1,36 @@
+.PostItem {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border:1px solid #dedede;
+    border-radius: 2px;
+    box-shadow: 5px 5px #dedede;
+    align-items: flex-start;
+    padding: 10px;
+    justify-content: space-between;
+    margin:20px;
+    min-height: 100px;
+    width:550px;
+    height:250px;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+.PostItem__Card--Heading {
+    width: 500px;
+    min-height: 85px;
+}
+.PostItem__Card--Description {
+    max-width:500px;
+    min-height:80px;
+}
+.PostItem__Card--Heading a{
+    color:black;
+}
+.PostItem__Card__Button {
+    display: flex;
+    flex-wrap: nowrap;
+    margin:10px;
+}
+.PostItem__Card__Button--edit,.PostItem__Card__Button--delete {
+    margin-right:30px;
+}

@@ -1,0 +1,12 @@
+.PostDetail {
+    min-height:500px;
+}
+
+.PostDetail .PostDetail__Description {
+    border:1px solid #dedede;
+    padding: 10px;
+    height:500px;
+    overflow-y: scroll;
+
+}
+
