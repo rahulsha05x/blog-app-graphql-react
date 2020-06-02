@@ -8,37 +8,52 @@ import {
 } from "../Queries";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Post } from "../PostList/Post";
+import { Post as PostData } from "../PostList/Post";
 
 interface Input {
   title: string;
   description: string;
 }
+interface InputData {
+  input:Input
+}
+interface PostVar {
+  id:string | undefined;
+}
+interface Status {
+  status:string
+}
+interface Posts {
+  posts:PostData[]
+}
+interface Post {
+  post:PostData
+}
 export const usePost = (id?:string) => {
   const history = useHistory();
-  let { data, refetch } = useQuery(LOAD_POSTS);
-  const {data:data_post} = useQuery(GET_POST,{
+  let { data, refetch } = useQuery<Posts,PostVar>(LOAD_POSTS);
+  const {data:data_post} = useQuery<Post,PostVar>(GET_POST,{
     variables:{id},
     onError:(error) => console.log(error)
   });
-  const [deletePost] = useMutation(DELETE_POSTS, {
+  const [deletePost] = useMutation<Status,PostVar>(DELETE_POSTS, {
     onCompleted: (record) => {
       refetch();
     },
   });
-  const [createPost] = useMutation(ADD_POST, {
+  const [createPost] = useMutation<PostData>(ADD_POST, {
     onCompleted: () => {
       history.push("/");
     },
   });
-  const [updatePost] = useMutation(UPDATE_POST, {
+  const [updatePost] = useMutation<PostData>(UPDATE_POST, {
     onCompleted: () => {
       history.push("/");
     },
   });
 
   const posts = data ? data.posts : [];
-  const post = data_post ? data_post.post : new Post(id="","","")
+  const post = data_post ? data_post.post : new PostData(id="","","")
   useEffect(() => {
     refetch();
   }, [refetch]);

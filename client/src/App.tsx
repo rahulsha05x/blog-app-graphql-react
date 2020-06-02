@@ -10,7 +10,7 @@ import PostDetail from "./PostDetail/Postdetail";
 import Header from "./Header/Header";
 
 const cache = new InMemoryCache({});
-const endpointUrl = "http://localhost:9000";
+const endpointUrl = "http://localhost:8000";
 const authLink = new ApolloLink((operation,forward)=>{
   
   return forward(operation);

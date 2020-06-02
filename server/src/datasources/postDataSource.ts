@@ -5,7 +5,6 @@ import { Post } from "../interface/Post";
 export class PostDataSource extends RESTDataSource {
   constructor() {
     super();
-    // this.baseURL = "https://api.randomuser.me/";
     this.baseURL = "http://localhost:8080";
   }
 
