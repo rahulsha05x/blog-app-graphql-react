@@ -20,6 +20,7 @@ const PostListItem:React.FC<Props> = ({post,deletePost,edit}: Props) => {
         <section className='PostItem__Card'>
             <h2 className='PostItem__Card--Heading' title={title}>
                 <button type='button' data-testid='postitem-heading' className='PostItem__Card--heading' onClick={()=>openPost(id)}>{title}</button>
+                {/* <Link to={`/posts/${id}`}>{title}</Link> */}
             </h2>
             <p className='PostItem__Card--Description'>
                 {trimDescription}

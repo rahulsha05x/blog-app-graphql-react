@@ -15,36 +15,37 @@ interface Input {
   description: string;
 }
 interface InputData {
-  input:Input
+  input: Input;
 }
 interface PostVar {
-  id:string | undefined;
+  id: string | undefined;
 }
 interface Status {
-  status:string
+  status: string;
 }
 interface Posts {
-  posts:PostData[]
+  posts: PostData[];
 }
 interface Post {
-  post:PostData
+  post: PostData;
 }
-export const usePost = (id?:string) => {
+export const usePost = () => {
   const history = useHistory();
-  let { data, refetch } = useQuery<Posts,PostVar>(LOAD_POSTS);
-  const {data:data_post} = useQuery<Post,PostVar>(GET_POST,{
-    variables:{id},
-    onError:(error) => console.log(error)
+  let { data, refetch } = useQuery<Posts, PostVar>(LOAD_POSTS, {
+    onCompleted:()=>console.log("Get posts hook called"),
+    onError: (error) => console.log("Get posts",error),
   });
-  const [deletePost] = useMutation<Status,PostVar>(DELETE_POSTS, {
+  const [deletePost] = useMutation<Status, PostVar>(DELETE_POSTS, {
     onCompleted: (record) => {
       refetch();
     },
+    onError: (error) => console.log(error),
   });
   const [createPost] = useMutation<PostData>(ADD_POST, {
     onCompleted: () => {
       history.push("/");
     },
+    onError: (error) => console.log(error),
   });
   const [updatePost] = useMutation<PostData>(UPDATE_POST, {
     onCompleted: () => {
@@ -53,16 +54,26 @@ export const usePost = (id?:string) => {
   });
 
   const posts = data ? data.posts : [];
-  const post = data_post ? data_post.post : new PostData(id="","","")
+  
   useEffect(() => {
     refetch();
   }, [refetch]);
   return {
     posts,
-    post,
     deletePost: (id: string) => deletePost({ variables: { id } }),
     createPost: (input: Input) => createPost({ variables: { input } }),
     updatePost: (id: string, title: string, description: string) =>
       updatePost({ variables: { id, title, description } }),
   };
 };
+export const usePostById = (id:string) => {
+  const { data: data_post } = useQuery<Post, PostVar>(GET_POST, {
+    variables: { id },
+    onCompleted:()=>console.log("Get post hook called",id),
+    onError: (error) => console.log("Get post error",error),
+  });
+  const post = data_post ? data_post.post : new PostData((id = ""), "", "");
+  return {
+    post
+  }
+}

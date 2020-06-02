@@ -8,6 +8,7 @@ import PostBoard from "./PostBoard/PostBoard";
 import PostForm from "./PostForm/PostForm";
 import PostDetail from "./PostDetail/Postdetail";
 import Header from "./Header/Header";
+import {APP_HEADER_TEXT} from './const/config';
 
 const cache = new InMemoryCache({});
 const endpointUrl = "http://localhost:8000";
@@ -15,7 +16,7 @@ const authLink = new ApolloLink((operation,forward)=>{
   
   return forward(operation);
 })
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: ApolloLink.from([
     authLink,
     new HttpLink({uri:endpointUrl})
@@ -29,7 +30,7 @@ function App() {
 
       <Router>
         <div>
-          <Header />
+          <Header headerText={APP_HEADER_TEXT}/>
           <section className="section">
             <Container fluid={true}>
               <Switch>

@@ -36,3 +36,10 @@
 .PostItem__Card__Button--edit,.PostItem__Card__Button--delete {
     margin-right:30px;
 }
+.PostItem__Card--heading {
+    background-color: white;
+    border:none;
+}
+.PostItem__Card--heading:hover {
+    text-decoration: underline;
+}

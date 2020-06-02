@@ -1,19 +1,32 @@
 import { Post } from "./interface/Post";
-
+import { IResolvers } from "apollo-server";
+interface inputVars {
+  id:string
+}
 const Query = {
-  post: (_root: any, { id }: any, { dataSources }: any): Post => {
-    const post = dataSources.postsDataAPI.getPostById(id);
-    if (!post) {
-      throw new Error("Could not find post with id");
+  post: (_root: void, { id }: inputVars, { dataSources }: any): Post => {
+    try {
+      const post = dataSources.postsDataAPI.getPostById(id);
+      return post;
+    } 
+    catch(error) {
+      console.log('Post with ID error',error)
+      return error
     }
-    return post;
+
   },
-  posts: (_root: any, _args: any, { dataSources }: any): Post[] => {
-    return dataSources.postsDataAPI.getPosts();
+  posts: (_root: void, _args: void, { dataSources }: any): Post[] => {
+    try {
+      return dataSources.postsDataAPI.getPosts();
+    } catch(error) {
+      console.log('Get Post error',error);
+      return error
+    }
+    
   },
 };
 const Mutation = {
-  createPost: async (_root: any, { input }: any, { dataSources }: any) => {
+  createPost: async (_root: void, { input }: any, { dataSources }: any) => {
     try {
       return dataSources.postsDataAPI.addNewPost(input);
     } catch (e) {
@@ -22,7 +35,7 @@ const Mutation = {
   },
   updatePost: async (
     _root: any,
-    { id, title, description }: any,
+    { id, title, description }: Post,
     { dataSources }: any
   ) => {
     try {
@@ -31,7 +44,7 @@ const Mutation = {
       throw new Error(e);
     }
   },
-  deletePost: async (_root: any, { id }: any, { dataSources }: any) => {
+  deletePost: async (_root: any, { id }: inputVars, { dataSources }: any) => {
     try {
       const res = await dataSources.postsDataAPI.deletePost(id);
       return res;
@@ -41,7 +54,7 @@ const Mutation = {
   },
 };
 
-export const resolvers = {
+export const resolvers:IResolvers = {
   Query,
   Mutation,
 };

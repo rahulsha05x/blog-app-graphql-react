@@ -2,8 +2,9 @@ import { ApolloServer, gql, IResolverObject } from "apollo-server";
 import { PostDataSource } from "./src/datasources/postDataSource";
 import { resolvers } from "./src/resolver";
 import { importSchema } from "graphql-import";
+import { DocumentNode } from "graphql";
 
-const typeDefs = importSchema("./src/schema/schema.graphql");
+const typeDefs:string = importSchema("./src/schema/schema.graphql");
 
 const server = new ApolloServer({
   typeDefs,

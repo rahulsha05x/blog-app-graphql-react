@@ -28,7 +28,7 @@ const getPostList = (data: Post[], props: Props) => {
 };
 const PostList:React.FC<Props> = (props: Props) => {
   return (
-    <div className='PostList'>
+    <div  data-testid='postlist-container' className='PostList'>
       <Row>
         <Col md="10">
           <h1 className="PostList__Heading">Posts</h1>
