@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { customRender } from "../testUtils/CustomeRender";
 import { findByText } from "@testing-library/dom";
 import PostDetail from "../PostDetail/Postdetail";
+import renderer from 'react-test-renderer';
 
 const waitForData = () => new Promise((res) => setTimeout(res, 0));
 const mocksPosts = {
@@ -50,13 +51,11 @@ const mocksPost = {
 describe("Postboard", () => {
   test("Postboard loaded", async () => {
     const component = customRender(<PostBoard />, "", [mocksPosts, mocksPost]);
-    const el = component.container;
+
     expect(screen.getByTestId("postlist-container")).toHaveClass("PostList");
   });
   test("Postboard have 2 posts", async () => {
     const component = customRender(<PostBoard />, "", [mocksPosts, mocksPost]);
-    const el = component.container;
-    fireEvent.click(screen.getByText("Add Post"));
     const item = await screen.findAllByTestId('postitem-heading')
     expect(item).toHaveLength(2)
   });

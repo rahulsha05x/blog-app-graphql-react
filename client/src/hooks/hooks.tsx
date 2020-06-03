@@ -29,6 +29,10 @@ interface Posts {
 interface Post {
   post: PostData;
 }
+/**
+ * This contains use post hook
+ * @returns posts,deletePost,createPost,updatePost
+ */
 export const usePost = () => {
   const history = useHistory();
   let { data, refetch } = useQuery<Posts, PostVar>(LOAD_POSTS, {
@@ -66,6 +70,11 @@ export const usePost = () => {
       updatePost({ variables: { id, title, description } }),
   };
 };
+/**
+ * This contains use post by id hook
+ * @param id of type string
+ * @returns post
+ */
 export const usePostById = (id:string) => {
   const { data: data_post } = useQuery<Post, PostVar>(GET_POST, {
     variables: { id },

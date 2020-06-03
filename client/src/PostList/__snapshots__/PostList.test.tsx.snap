@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post item and description text 1`] = `
+<div
+  className="PostList"
+  data-testid="postlist-container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-10"
+    >
+      <h1
+        className="PostList__Heading"
+      >
+        Posts
+      </h1>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-6"
+    >
+      <button
+        className="btn--primary"
+        onClick={[Function]}
+        title="Add new post"
+        type="button"
+      >
+        Add Post
+      </button>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="PostList__Item col"
+    >
+      <article
+        className="PostItem"
+        data-testid="PostList-Item"
+      >
+        <section
+          className="PostItem__Card"
+        >
+          <h2
+            className="PostItem__Card--Heading"
+            title="New title 121"
+          >
+            <button
+              className="PostItem__Card--heading"
+              data-testid="postitem-heading"
+              onClick={[Function]}
+              type="button"
+            >
+              New title 121
+            </button>
+          </h2>
+          <p
+            className="PostItem__Card--Description"
+          >
+            New description 1
+          </p>
+          <article
+            className="PostItem__Card__Button"
+          >
+            <button
+              className="PostItem__Card__Button--edit btn--primary"
+              onClick={[Function]}
+              type="button"
+            >
+               Edit
+            </button>
+            <button
+              className="PostItem__Card__Button--delete btn--primary"
+              onClick={[Function]}
+              type="button"
+            >
+              Delete
+            </button>
+          </article>
+        </section>
+      </article>
+      <article
+        className="PostItem"
+        data-testid="PostList-Item"
+      >
+        <section
+          className="PostItem__Card"
+        >
+          <h2
+            className="PostItem__Card--Heading"
+            title="New title 12"
+          >
+            <button
+              className="PostItem__Card--heading"
+              data-testid="postitem-heading"
+              onClick={[Function]}
+              type="button"
+            >
+              New title 12
+            </button>
+          </h2>
+          <p
+            className="PostItem__Card--Description"
+          >
+            New description 21
+          </p>
+          <article
+            className="PostItem__Card__Button"
+          >
+            <button
+              className="PostItem__Card__Button--edit btn--primary"
+              onClick={[Function]}
+              type="button"
+            >
+               Edit
+            </button>
+            <button
+              className="PostItem__Card__Button--delete btn--primary"
+              onClick={[Function]}
+              type="button"
+            >
+              Delete
+            </button>
+          </article>
+        </section>
+      </article>
+    </div>
+  </div>
+</div>
+`;

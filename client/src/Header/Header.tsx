@@ -1,5 +1,8 @@
 import React from 'react';
 import './Header.css'
+/**
+ * @param headerText  Prop for 'header Text'.
+ */
 interface Props {
     headerText:string;
 }

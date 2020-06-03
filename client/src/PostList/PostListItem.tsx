@@ -1,6 +1,6 @@
 import React from "react";
 import './PostListItem.css';
-import { Link, useHistory } from "react-router-dom"
+import {  useHistory } from "react-router-dom"
 import { Post } from "./Post";
 interface Props {
     key:string,
@@ -8,15 +8,23 @@ interface Props {
     edit: (id:string) => void,
     deletePost: (id:string) => void,
 }
+/**
+ * Receives posts array, deletePost and edit.
+ * displays title and description for single post
+ * contains buttons to edit and delete post
+ */
 const PostListItem:React.FC<Props> = ({post,deletePost,edit}: Props) => {
   const { id, title, description } = post;
   const history = useHistory()
   const trimDescription = description.length > 100? `${description.substring(0,150)}...`:description;
+  /**
+ * Navigates to posts/:id to display post
+ */
   const openPost = (id:any) => {
     history.push(`/posts/${id}`)
   }
   return (
-    <article className='PostItem'>
+    <article className='PostItem' data-testid='PostList-Item'>
         <section className='PostItem__Card'>
             <h2 className='PostItem__Card--Heading' title={title}>
                 <button type='button' data-testid='postitem-heading' className='PostItem__Card--heading' onClick={()=>openPost(id)}>{title}</button>

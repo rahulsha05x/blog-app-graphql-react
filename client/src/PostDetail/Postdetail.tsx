@@ -1,10 +1,14 @@
 import React from "react";
 import "./PostDetail.css";
 import { Row, Col } from "reactstrap";
-import { usePost, usePostById } from "../hooks";
+import { usePostById } from "../hooks";
 interface Props {
   match: any;
 }
+/**
+ * Post Detail displays single Component
+ * Props contains postId extracted from react router params.
+ */
 const PostDetail: React.FC<Props> = (props: Props) => {
   const { postId } = props.match.params;
   const { post } = usePostById(postId);

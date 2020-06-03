@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, cleanup } from "@testing-library/react";
 import PostListItem from "./PostListItem";
 import { Route, Router } from "react-router-dom";
 
@@ -22,3 +22,4 @@ test("Renders post list item", () => {
     
     expect(screen.getByText('New post description 1')).not.toBe(null);
   });
+afterEach(cleanup);

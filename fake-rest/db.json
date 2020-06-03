@@ -1,18 +1,8 @@
 {
   "posts": [
     {
-      "id": "1",
-      "title": "Harry Potter and the Chamber of Secrets",
-      "description": "Story about a teenage boy and his friends against the most dreaded villain in the world"
-    },
-    {
-      "id": "2",
-      "title": "Jurassic Park",
-      "description": "Story about dinosaur in the park"
-    },
-    {
-      "title": "New title 1",
-      "description": "New description 1",
+      "title": "New title 121",
+      "description": "New description 123",
       "id": "s-on9Sj"
     },
     {
@@ -26,14 +16,19 @@
       "id": "ahaELtt"
     },
     {
-      "title": "test double call",
-      "description": "doube",
-      "id": "VWvLljY"
+      "title": "New title",
+      "description": "Adding blog post",
+      "id": "d4e2cSh"
     },
     {
-      "title": "Latest postcreatePost",
-      "description": "latest post post",
-      "id": "VpvFNtL"
+      "title": "New poat 122",
+      "description": "new post 122",
+      "id": "Gb3_CYd"
+    },
+    {
+      "title": "Post 124",
+      "description": "Description 124",
+      "id": "l1DU6e1"
     }
   ]
 }
