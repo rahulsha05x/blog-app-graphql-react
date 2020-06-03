@@ -3,6 +3,10 @@ import { IResolvers } from "apollo-server";
 interface inputVars {
   id:string
 }
+/**
+ * Query to show Posts and Post
+ * Post @param id
+ */
 const Query = {
   post: (_root: void, { id }: inputVars, { dataSources }: any): Post => {
     try {
