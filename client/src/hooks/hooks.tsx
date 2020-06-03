@@ -31,7 +31,10 @@ interface Post {
 }
 /**
  * This contains use post hook
- * @returns posts,deletePost,createPost,updatePost
+ * @returns posts
+ * @returns deletePost
+ * @returns createPost
+ * @returns updatePost
  */
 export const usePost = () => {
   const history = useHistory();
