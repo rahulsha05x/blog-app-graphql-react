@@ -25,7 +25,6 @@ export class PostDataSource extends RESTDataSource {
       return {status:"Success"};
   }
   async updatePost({id,title,description}:Post) {
-      console.log("id is",id)
       const post = await this.patch(`/posts/${id}`,{id,title,description});
       return post;
   }

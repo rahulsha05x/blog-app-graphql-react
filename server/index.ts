@@ -6,9 +6,19 @@ import { DocumentNode } from "graphql";
 
 const typeDefs:string = importSchema("./src/schema/schema.graphql");
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   typeDefs,
   resolvers,
+  formatError: (err) => {
+    // Don't give the specific errors to the client.
+    if (err.message.startsWith("Database Error: ")) {
+      return new Error('Internal server error');
+    }
+    
+    // Otherwise return the original error.  The error can also
+    // be manipulated in other ways, so long as it's returned.
+    return err;
+  },
   dataSources: () => ({
     postsDataAPI: new PostDataSource(),
   }),

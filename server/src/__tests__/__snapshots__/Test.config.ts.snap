@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Queries fetch post 1`] = `
+Object {
+  "post": Object {
+    "description": "New description 123",
+    "id": "s-on9Sj",
+    "title": "New title 13234",
+  },
+}
+`;
+
+exports[`Queries fetches list of posts 1`] = `
+Object {
+  "posts": Array [
+    Object {
+      "description": "New description 123",
+      "id": "s-on9Sj",
+      "title": "New title 13234",
+    },
+    Object {
+      "description": "New description 2",
+      "id": "WzSLQSz",
+      "title": "New title 2",
+    },
+    Object {
+      "description": "The substring() method extracts the characters from a string, between two specified indices, and returns the new sub string.This method extracts the characters in a string between start and end, not including end itself.If start is greater than end, this method will swap the two arguments, meaning str.substring(1, 4) == str.substring(4, 1).If either start or end is less than 0, it is treated as if it were 0.Note: The substring() method does not change the original string.",
+      "id": "ahaELtt",
+      "title": "New title 31",
+    },
+    Object {
+      "description": "Adding blog post",
+      "id": "d4e2cSh",
+      "title": "New title",
+    },
+  ],
+}
+`;
+
+exports[`Queries mutate post:add New Post 1`] = `
+Object {
+  "post": Object {
+    "description": "People fighting for the crown",
+    "id": "yRfeOFz",
+    "title": "Game of thrones",
+  },
+}
+`;
+
+exports[`Queries mutate post:get Post with ID 1`] = `
+Object {
+  "post": Object {
+    "description": "New description 123",
+    "id": "s-on9Sj",
+    "title": "New title 13234",
+  },
+}
+`;

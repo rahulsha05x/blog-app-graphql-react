@@ -1,16 +1,17 @@
 import { Post } from "./interface/Post";
-import { IResolvers } from "apollo-server";
+import { IResolvers,UserInputError } from "apollo-server";
 interface inputVars {
   id:string
 }
+
 /**
  * Query to show Posts and Post
  * Post @param id
  */
 const Query = {
-  post: (_root: void, { id }: inputVars, { dataSources }: any): Post => {
+  post: (_root: void, args: any, { dataSources }: any): Post => {
     try {
-      const post = dataSources.postsDataAPI.getPostById(id);
+      const post = dataSources.postsDataAPI.getPostById(args.id);
       return post;
     } 
     catch(error) {
@@ -29,6 +30,7 @@ const Query = {
     
   },
 };
+
 const Mutation = {
   createPost: async (_root: void, { input }: any, { dataSources }: any) => {
     try {
@@ -43,9 +45,9 @@ const Mutation = {
     { dataSources }: any
   ) => {
     try {
-      return dataSources.postsDataAPI.updatePost({ id, title, description });
+      return dataSources.postsDataAPI.updatePost({ id, title, description })
     } catch (e) {
-      throw new Error(e);
+      return new Error(e);
     }
   },
   deletePost: async (_root: any, { id }: inputVars, { dataSources }: any) => {
@@ -60,5 +62,5 @@ const Mutation = {
 
 export const resolvers:IResolvers = {
   Query,
-  Mutation,
+  Mutation
 };

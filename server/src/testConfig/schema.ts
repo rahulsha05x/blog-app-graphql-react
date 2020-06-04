@@ -1,0 +1,29 @@
+
+const { gql } = require('apollo-server');
+export const typeDefs = gql`type Query {
+    post(id: ID!): Post
+    posts: [Post]
+  }
+  "Description for type post"
+  type Post {
+    "Required field id"
+    id: ID!
+    "Title field for post"
+    title: String
+    "description field for post"
+    description: String
+  }
+  type Status {
+    status: String
+  }
+  
+  type Mutation {
+    createPost(input: CreatePostInput): Post
+    deletePost(id: ID!): Status
+    updatePost(id: ID!, title: String, description: String): Post
+  }
+  input CreatePostInput {
+    title: String
+    description: String
+  }
+  `
