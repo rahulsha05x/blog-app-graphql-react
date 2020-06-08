@@ -3,6 +3,8 @@ import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import { loadPost } from '../request';
 import { useLocation, useParams } from 'react-router-dom';
 import { usePost, usePostById } from '../hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
+
 import {
   EDIT_POST_TEXT,
   NEW_POST_TEXT,
@@ -11,6 +13,7 @@ import {
   SUBMIT_BUTTON_TEXT,
 } from '../const/config';
 import Spinner from '../util/Spinner/Spinner';
+import { GET_POST } from '../Queries';
 
 interface State {
   title: string;
@@ -56,6 +59,7 @@ const PostForm: React.FC = () => {
   const query: URLSearchParams | null = useQuery();
   let { postId } = useParams();
   const mode: string | null = query.get('mode');
+  const [getPost, { loading, data }] = useLazyQuery(GET_POST);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     const {
@@ -78,12 +82,17 @@ const PostForm: React.FC = () => {
 
   useEffect(() => {
     if (mode && mode === 'edit') {
-      loadPost(postId).then((post) => {
-        dispatch({ type: 'title', payload: post.title });
-        dispatch({ type: 'description', payload: post.description });
-      });
+      getPost({ variables: { id: postId } });
     }
   }, [mode, postId]);
+  useEffect(() => {
+    if (mode && mode === 'edit') {
+      if (data) {
+        dispatch({ type: 'title', payload: data.post.title });
+        dispatch({ type: 'description', payload: data.post.description });
+      }
+    }
+  }, [data, mode]);
   const heading = mode === 'edit' ? EDIT_POST_TEXT : NEW_POST_TEXT;
   return (
     <section>
