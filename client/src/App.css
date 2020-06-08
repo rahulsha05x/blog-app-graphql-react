@@ -3,7 +3,10 @@
   background-color: #f5f2d0;
   font-family: 'Open Sans', sans-serif;
 }
-
+.App__Alert {
+  margin:10px;
+  height:50px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -50,3 +53,6 @@
     transform: rotate(360deg);
   }
 }
+
+
+

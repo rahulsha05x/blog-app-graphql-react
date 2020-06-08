@@ -6,6 +6,9 @@
     height:400px;
 
 }
+.PostList__Item--error {
+    height: 50px;
+}
 .PostList__Heading {
     font-weight: 600;
 }

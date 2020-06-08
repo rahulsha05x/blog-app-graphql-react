@@ -11,7 +11,7 @@ import Header from "./Header/Header";
 import {APP_HEADER_TEXT} from './const/config';
 
 const cache = new InMemoryCache({});
-const endpointUrl = "http://localhost:8000";
+const endpointUrl:string = "http://localhost:8000";
 const authLink = new ApolloLink((operation,forward)=>{
   
   return forward(operation);

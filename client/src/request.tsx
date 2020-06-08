@@ -3,10 +3,10 @@ import {
   HttpLink,
   InMemoryCache,
   ApolloLink,
-} from "apollo-boost";
-import gql from "graphql-tag";
+} from 'apollo-boost';
+import gql from 'graphql-tag';
 
-const endpointUrl = "http://localhost:9000/posts";
+const endpointUrl = 'http://localhost:8000/posts';
 const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
@@ -25,7 +25,7 @@ export const loadPosts = async () => {
       }
     }
   `;
-  const { data } = await client.query({ query, fetchPolicy: "no-cache" });
+  const { data } = await client.query({ query, fetchPolicy: 'no-cache' });
   //const response = await graphqlRequest(query);
   return data.posts;
 };
@@ -86,7 +86,7 @@ export const updatePost = async (
       }
     }
   `;
-  const variables = { id,title,description };
+  const variables = { id, title, description };
   const { data } = await client.mutate({ mutation, variables });
   return data;
 };

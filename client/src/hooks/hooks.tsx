@@ -9,6 +9,7 @@ import {
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Post as PostData } from "../PostList/Post";
+import { gql } from "apollo-boost";
 
 interface Input {
   title: string;
@@ -38,35 +39,46 @@ interface Post {
  */
 export const usePost = () => {
   const history = useHistory();
-  let { data, refetch } = useQuery<Posts, PostVar>(LOAD_POSTS, {
+  let { data, refetch,error:posts_error,loading } = useQuery<Posts, PostVar>(LOAD_POSTS, {
     onCompleted:()=>console.log("Get posts hook called"),
     onError: (error) => console.log("Get posts",error),
   });
-  const [deletePost] = useMutation<Status, PostVar>(DELETE_POSTS, {
-    onCompleted: (record) => {
-      refetch();
-    },
+  const [deletePost,{loading:delete_loading,error:delete_error}] = useMutation<Status, PostVar>(DELETE_POSTS, {
+    refetchQueries:[
+      {query: LOAD_POSTS}
+    ],
+    
     onError: (error) => console.log(error),
   });
-  const [createPost] = useMutation<PostData>(ADD_POST, {
+  const [createPost,{loading:create_loading,error:create_error,data:create_data}] = useMutation<PostData>(ADD_POST, {
     onCompleted: () => {
       history.push("/");
     },
+    refetchQueries:[
+      {query: LOAD_POSTS}
+    ],
     onError: (error) => console.log(error),
   });
   const [updatePost] = useMutation<PostData>(UPDATE_POST, {
     onCompleted: () => {
       history.push("/");
     },
+    refetchQueries:[
+      {query: LOAD_POSTS}
+    ],
   });
 
   const posts = data ? data.posts : [];
   
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
   return {
     posts,
+    posts_error,
+    loading,
+    delete_loading,
+    delete_error,
+    create_data,
+    create_loading,
+    create_error,
     deletePost: (id: string) => deletePost({ variables: { id } }),
     createPost: (input: Input) => createPost({ variables: { input } }),
     updatePost: (id: string, title: string, description: string) =>
@@ -79,13 +91,15 @@ export const usePost = () => {
  * @returns post
  */
 export const usePostById = (id:string) => {
-  const { data: data_post } = useQuery<Post, PostVar>(GET_POST, {
+  const { data: data_post,error,loading } = useQuery<Post, PostVar>(GET_POST, {
     variables: { id },
     onCompleted:()=>console.log("Get post hook called",id),
     onError: (error) => console.log("Get post error",error),
   });
   const post = data_post ? data_post.post : new PostData((id = ""), "", "");
   return {
-    post
+    post,
+    error,
+    loading
   }
 }

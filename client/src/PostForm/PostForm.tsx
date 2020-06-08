@@ -1,15 +1,16 @@
-import React, { useReducer, useEffect } from "react";
-import { Form, FormGroup, Label, Input } from "reactstrap";
-import { loadPost } from "../request";
-import { useLocation, useParams } from "react-router-dom";
-import { usePost } from "../hooks";
+import React, { useReducer, useEffect } from 'react';
+import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { loadPost } from '../request';
+import { useLocation, useParams } from 'react-router-dom';
+import { usePost, usePostById } from '../hooks';
 import {
   EDIT_POST_TEXT,
   NEW_POST_TEXT,
   TITLE_TEXT,
   DESCRIPTION_TEXT,
   SUBMIT_BUTTON_TEXT,
-} from "../const/config";
+} from '../const/config';
+import Spinner from '../util/Spinner/Spinner';
 
 interface State {
   title: string;
@@ -22,33 +23,39 @@ interface Action {
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "title":
+    case 'title':
       return {
         ...state,
         title: action.payload,
       };
-    case "description":
+    case 'description':
       return {
         ...state,
         description: action.payload,
       };
     default:
-      throw new Error("Cannot find type");
+      throw new Error('Cannot find type');
   }
 };
 const initialState: State = {
-  title: "",
-  description: "",
+  title: '',
+  description: '',
 };
 const useQuery = (): URLSearchParams => {
   return new URLSearchParams(useLocation().search);
 };
 const PostForm: React.FC = () => {
-  const { updatePost, createPost } = usePost();
+  const {
+    updatePost,
+    createPost,
+    create_loading,
+    create_error,
+    create_data,
+  } = usePost();
   const [state, dispatch] = useReducer(reducer, initialState);
   const query: URLSearchParams | null = useQuery();
   let { postId } = useParams();
-  const mode: string | null = query.get("mode");
+  const mode: string | null = query.get('mode');
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     const {
@@ -61,8 +68,8 @@ const PostForm: React.FC = () => {
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("clicked", state);
-    if (mode === "edit") {
+    console.log('clicked', state);
+    if (mode === 'edit') {
       updatePost(postId, state.title, state.description);
     } else {
       createPost(state);
@@ -70,14 +77,14 @@ const PostForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (mode && mode === "edit") {
+    if (mode && mode === 'edit') {
       loadPost(postId).then((post) => {
-        dispatch({ type: "title", payload: post.title });
-        dispatch({ type: "description", payload: post.description });
+        dispatch({ type: 'title', payload: post.title });
+        dispatch({ type: 'description', payload: post.description });
       });
     }
   }, [mode, postId]);
-  const heading = mode === "edit" ? EDIT_POST_TEXT : NEW_POST_TEXT;
+  const heading = mode === 'edit' ? EDIT_POST_TEXT : NEW_POST_TEXT;
   return (
     <section>
       <h1 className="title">{heading}</h1>
@@ -117,6 +124,16 @@ const PostForm: React.FC = () => {
             </div>
           </div>
         </Form>
+        {create_loading ? <Spinner /> : null}
+        {create_data ? (
+          <Alert
+            color="success"
+            className=" App__Alert"
+          >{`Post Added Successfully`}</Alert>
+        ) : null}
+        {create_error ? (
+          <Alert color="danger App_Alert">Error Adding Post</Alert>
+        ) : null}
       </div>
     </section>
   );

@@ -5,11 +5,13 @@ import { Row, Col } from "reactstrap";
 import {  useHistory } from "react-router-dom";
 import { Post } from './Post';
 import { POST_LIST_HEADING, ADD_POST_BUTTON_TEXT } from "../const/config";
+import { Alert } from "reactstrap";
 
 interface Props {
     posts:Post[]
     edit:(id:string)=>void
     delete:(id:string)=>void
+    error?:any
 }
 /**
  * @param data of type Post[]
@@ -47,6 +49,9 @@ const PostList:React.FC<Props> = (props: Props) => {
   const addPost = () => {
     history.push('/posts/new')
   }
+  const postList = props.error ? <Alert color='danger App__Alert'>{props.error.message}</Alert>:getPostList(props.posts, props);
+  let classes = ['PostList__Item'];
+  classes = props.error?['PostList__Item--error',...classes]:classes;
   return (
     <div  data-testid='postlist-container' className='PostList'>
       <Row>
@@ -65,7 +70,7 @@ const PostList:React.FC<Props> = (props: Props) => {
           </Col>
       </Row>
       <Row>
-        <Col className='PostList__Item'>{getPostList(props.posts, props)}</Col>
+        <Col className={classes.join(' ')}>{postList}</Col>
       </Row>
     </div>
   );

@@ -1,7 +1,8 @@
 import React from "react";
 import "./PostDetail.css";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Alert } from "reactstrap";
 import { usePostById } from "../hooks";
+import Spinner from "../util/Spinner/Spinner";
 interface Props {
   match: any;
 }
@@ -11,7 +12,13 @@ interface Props {
  */
 const PostDetail: React.FC<Props> = (props: Props) => {
   const { postId } = props.match.params;
-  const { post } = usePostById(postId);
+  const { post,error,loading } = usePostById(postId);
+  if(loading) {
+    return <Spinner />
+  }
+  if (error) {
+    return <Alert color='danger' className='App_Alert'>{error.message}</Alert>
+  }
   return (
     <section className="PostDetail">
       <Row>
