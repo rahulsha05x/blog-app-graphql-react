@@ -1,7 +1,13 @@
-import { Post } from "./interface/Post";
-import { IResolvers,UserInputError } from "apollo-server";
+import { Post } from './interface/Post';
+import { IResolvers, UserInputError } from 'apollo-server';
 interface inputVars {
-  id:string
+  id: string;
+}
+interface PostResponse {
+  success: boolean;
+  code: string;
+  response?: any;
+  error?: any;
 }
 
 /**
@@ -9,25 +15,24 @@ interface inputVars {
  * Post @param id
  */
 const Query = {
-  post: (_root: void, args: any, { dataSources }: any): Post => {
+  post: (_root: void, { id }: { id: string }, { dataSources }: any): Post => {
     try {
-      const post = dataSources.postsDataAPI.getPostById(args.id);
+      const post = dataSources.postsDataAPI.getPostById(id);
       return post;
-    } 
-    catch(error) {
-      console.log('Post with ID error',error)
-      return error
+      //return { success: true, response: post, code: '200' };
+    } catch (error) {
+      console.log('Post with ID error', error);
+      return error;
+      //return { success: false, error: error, code: '201' };
     }
-
   },
   posts: (_root: void, _args: void, { dataSources }: any): Post[] => {
     try {
       return dataSources.postsDataAPI.getPosts();
-    } catch(error) {
-      console.log('Get Post error',error);
-      return error
+    } catch (error) {
+      console.log('Get Post error', error);
+      return error;
     }
-    
   },
 };
 
@@ -45,7 +50,12 @@ const Mutation = {
     { dataSources }: any
   ) => {
     try {
-      return dataSources.postsDataAPI.updatePost({ id, title, description })
+      const response = dataSources.postsDataAPI.updatePost({
+        id,
+        title,
+        description,
+      });
+      return response;
     } catch (e) {
       return new Error(e);
     }
@@ -60,7 +70,7 @@ const Mutation = {
   },
 };
 
-export const resolvers:IResolvers = {
+export const resolvers: IResolvers = {
   Query,
-  Mutation
+  Mutation,
 };
