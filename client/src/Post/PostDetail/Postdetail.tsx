@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './PostDetail.css';
 import { Row, Col, Alert } from 'reactstrap';
-import { usePostById } from '../hooks';
-import Spinner from '../util/Spinner/Spinner';
-import { GET_POST, LOAD_POSTS } from '../Queries';
-import { client } from '../App';
-import { Post } from '../PostList/Post';
+import { usePostById } from '../../hooks';
+import Spinner from '../../util/Spinner/Spinner';
+
 interface Props {
   match: any;
 }

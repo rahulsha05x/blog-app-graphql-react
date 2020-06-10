@@ -11,4 +11,5 @@ export const SUBMIT_BUTTON_TEXT = 'Submit';
 export const DELETE_BUTTON_TEXT = 'Delete';
 export const EDIT_BUTTON_TEXT = 'Edit';
 export const POST_LIST_HEADING = 'Posts';
-export const ADD_POST_BUTTON_TEXT = 'Add Post'
+export const ADD_POST_BUTTON_TEXT = 'Add Post';
+export const GRAPHQL_URL = 'http://localhost:8000';

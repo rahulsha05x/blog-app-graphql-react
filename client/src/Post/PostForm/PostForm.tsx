@@ -1,8 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import { loadPost } from '../request';
-import { useLocation, useParams } from 'react-router-dom';
-import { usePost, usePostById } from '../hooks';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
+import { usePost, useAddPost } from '../../hooks';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import {
@@ -11,9 +10,9 @@ import {
   TITLE_TEXT,
   DESCRIPTION_TEXT,
   SUBMIT_BUTTON_TEXT,
-} from '../const/config';
-import Spinner from '../util/Spinner/Spinner';
-import { GET_POST } from '../Queries';
+} from '../../const/en';
+import Spinner from '../../util/Spinner/Spinner';
+import { GET_POST } from '../../Queries';
 
 interface State {
   title: string;
@@ -47,19 +46,20 @@ const initialState: State = {
 const useQuery = (): URLSearchParams => {
   return new URLSearchParams(useLocation().search);
 };
-const PostForm: React.FC = () => {
+const PostForm: React.FC = React.memo(() => {
   const {
-    updatePost,
     createPost,
     create_loading,
     create_error,
     create_data,
-  } = usePost();
+  } = useAddPost();
+  const { updatePost } = usePost();
+  const history = useHistory();
   const [state, dispatch] = useReducer(reducer, initialState);
   const query: URLSearchParams | null = useQuery();
   let { postId } = useParams();
   const mode: string | null = query.get('mode');
-  const [getPost, { loading, data }] = useLazyQuery(GET_POST);
+  const [getPost, { data }] = useLazyQuery(GET_POST);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     const {
@@ -84,7 +84,7 @@ const PostForm: React.FC = () => {
     if (mode && mode === 'edit') {
       getPost({ variables: { id: postId } });
     }
-  }, [mode, postId]);
+  }, [mode, postId, getPost]);
   useEffect(() => {
     if (mode && mode === 'edit') {
       if (data) {
@@ -146,6 +146,6 @@ const PostForm: React.FC = () => {
       </div>
     </section>
   );
-};
+});
 
 export default PostForm;
