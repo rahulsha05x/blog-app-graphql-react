@@ -17,7 +17,7 @@
     "apollo-datasource-rest": "^0.9.2",
     "apollo-server": "^2.14.2",
     "apollo-server-testing": "^2.9.13",
-    "class-validator": "^0.12.2",
+    "class-validator": "^0.14.0",
     "graphql": "^15.0.0",
     "jest": "^26.0.1",
     "json-server": "^0.16.1",
